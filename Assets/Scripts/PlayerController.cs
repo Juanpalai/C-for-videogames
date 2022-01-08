@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     //Varible player momvent
     public float jumpForce = 6f;
     public float runningSpeed = 2f;
+
     Rigidbody2D rigidBody;
     Animator animator;
+    Vector3 initialPosition;
 
     private const string STATE_LIVE = "isAlive";
     private const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -30,17 +32,31 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        initialPosition = transform.position; // The position at which the character starts is saved.
+    }
+
+    public void Stargame()
+    {
         animator.SetBool(STATE_LIVE, true);
         animator.SetBool(STATE_ON_THE_GROUND, true);
+        Invoke("Restarposition", 0.1f);
+    }
+
+    void Restarposition()
+    {
+        this.transform.position = initialPosition;
+        this.rigidBody.velocity = Vector2.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump")) Jump();
+        if (Input.GetButtonDown("Jump")) Jump(); //calling the jump function
 
-        animator.SetBool(STATE_ON_THE_GROUND, IsTochingTheGround());
+        animator.SetBool(STATE_ON_THE_GROUND, IsTochingTheGround()); //calling the function that detects if the character is touching the ground or not
 
+        //conditioners to know if you are going left or right
         if (Input.GetAxis("Horizontal") < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
@@ -50,7 +66,9 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = false;
             animator.SetBool(STATE_WALLKING, true);
-        }     
+        }  
+        
+
         if(rigidBody.velocity.x==0) //Pause walking animation when character is not moving
         {
             animator.SetBool(STATE_WALLKING, false);
@@ -79,10 +97,13 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (IsTochingTheGround())
+        if (GameManager.instance.currentGameState == GameSate.inGame)
         {
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }        
+            if (IsTochingTheGround())
+            {
+                rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+        }
 
     }
 
@@ -103,5 +124,11 @@ public class PlayerController : MonoBehaviour
         }
 
            
+    }
+
+    public void Die()
+    {
+        animator.SetBool(STATE_LIVE, false);
+        GameManager.instance.GameOver();
     }
 }

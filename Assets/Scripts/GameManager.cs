@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    PlayerController controller;
+
     private void Awake()
     {
         if(instance == null) //verification that the instance has not been declared before.
@@ -30,13 +32,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       controller = GameObject.Find("Player").GetComponent<PlayerController>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") && currentGameState != GameSate.inGame)
         {
             StarGame();
         }
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void StarGame()
     {
         SetGameState(GameSate.inGame);
+        
     }
 
     //Funtion for Finish the game
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
         } else if(newGameState == GameSate.inGame)
         {
             //TODO: The scene must be set to play
+            controller.Stargame();
         }else if(newGameState == GameSate.gameOver)
         {
             //TODO: The scene must be set to game over
