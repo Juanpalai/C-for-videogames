@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) ||　Input.GetMouseButtonDown(0)) Jump();
+        if (Input.GetButtonDown("Jump")) Jump();
 
         animator.SetBool(STATE_ON_THE_GROUND, IsTochingTheGround());
 
@@ -50,8 +50,8 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = false;
             animator.SetBool(STATE_WALLKING, true);
-        }
-        if (rigidBody.velocity.x == 0)
+        }     
+        if(rigidBody.velocity.x==0) //Pause walking animation when character is not moving
         {
             animator.SetBool(STATE_WALLKING, false);
         }
@@ -63,7 +63,18 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * runningSpeed, rigidBody.velocity.y);
+        if (GameManager.instance.currentGameState == GameSate.inGame)
+        {
+            if (rigidBody.velocity.x <= runningSpeed)
+            {
+                rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * runningSpeed, rigidBody.velocity.y);
+            }
+        }
+        else //If we are not in the game, the speed is paused.
+        {
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            
+        }
     }
 
     void Jump()
@@ -83,7 +94,6 @@ public class PlayerController : MonoBehaviour
             Vector2.down,
             1.4f, groundMask))
         {
-            
             return true;
         }
         else
