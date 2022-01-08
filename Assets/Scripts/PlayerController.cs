@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     private const string STATE_LIVE = "isAlive";
-    private const string STATE_ON_THE_GROUND = "isOnTheGround";
-    public const string MAXIMUN_HEIGHT = "isUp";
-    public const string FALLING = "isFalling";
+    private const string STATE_ON_THE_GROUND = "isOnTheGround";   
 
 
     public LayerMask groundMask;
@@ -47,13 +45,7 @@ public class PlayerController : MonoBehaviour
         if (IsTochingTheGround())
         {
             rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-        if(ForceMode2D.Force ==0)
-        {
-            animator.SetBool(MAXIMUN_HEIGHT, true);
-            
-        }
-        
+        }        
 
     }
 
