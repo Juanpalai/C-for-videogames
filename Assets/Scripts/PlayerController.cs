@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        Debug.DrawRay(this.transform.position, Vector2.down * 1.4f, Color.red);
+        Debug.DrawRay(this.transform.position, Vector2.down * 1f, Color.red);
         
     }
 
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Physics2D.Raycast(this.transform.position,
             Vector2.down,
-            1.4f, groundMask))
+            1f, groundMask))
         {
             return true;
         }
