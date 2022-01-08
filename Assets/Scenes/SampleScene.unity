@@ -328,11 +328,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4964762720537254171, guid: eb0b0b86cf34aff4e9532dd56926cf22, type: 3}
       propertyPath: m_Mass
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4964762720537254175, guid: eb0b0b86cf34aff4e9532dd56926cf22, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9038370942541559228, guid: eb0b0b86cf34aff4e9532dd56926cf22, type: 3}
+      propertyPath: jumpForce
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0b0b86cf34aff4e9532dd56926cf22, type: 3}
