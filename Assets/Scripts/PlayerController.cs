@@ -42,11 +42,13 @@ public class PlayerController : MonoBehaviour
         animator.SetBool(STATE_ON_THE_GROUND, true);
         Invoke("Restarposition", 0.1f);
     }
-
+    //Restar the position of the player and the camera when the player respawn
     void Restarposition()
     {
         this.transform.position = initialPosition;
         this.rigidBody.velocity = Vector2.zero;
+        GameObject MainCamera = GameObject.Find("Main Camera");
+        MainCamera.GetComponent<CameraFollow>().ResetCameraPosition();
     }
 
     // Update is called once per frame

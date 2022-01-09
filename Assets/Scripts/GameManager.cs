@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
         } else if(newGameState == GameSate.inGame)
         {
             //TODO: The scene must be set to play
+            LevelManager.instance.RemoveAllLevelBlock();
+            LevelManager.instance.GenerateInicalBlock();
             controller.Stargame();
         }else if(newGameState == GameSate.gameOver)
         {
