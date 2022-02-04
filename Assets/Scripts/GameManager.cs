@@ -67,15 +67,18 @@ public class GameManager : MonoBehaviour
         if(newGameState==GameSate.menu)
         {
             //TODO: place the menu logic
+            MenuManager.Instance.ShowMenu();
         } else if(newGameState == GameSate.inGame)
         {
             //TODO: The scene must be set to play
             LevelManager.instance.RemoveAllLevelBlock();
             LevelManager.instance.GenerateInicalBlock();
             controller.Stargame();
+            MenuManager.Instance.HideMenu();
         }else if(newGameState == GameSate.gameOver)
         {
             //TODO: The scene must be set to game over
+            MenuManager.Instance.ShowMenu();
         }
 
         this.currentGameState = newGameState;
